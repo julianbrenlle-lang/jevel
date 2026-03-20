@@ -6,7 +6,7 @@
 // ---- TRANSLATIONS ----
 const translations = {
   es: {
-    tagline: "Jevel es un sello musical independiente,<br>con un enfoque en música ídish y klezmer.",
+    tagline: "Jevel es un sello musical independiente, con un enfoque en música ídish y klezmer.",
     newRelease: "nuevo lanzamiento",
     listenBandcamp: "Escuchar en Bandcamp →",
     releaseDesc: "Una sesión klezmer en Buenos Aires, 2024.",
