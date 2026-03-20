@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>אויפֿן פּריפּעטשיק</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Courier+Prime:wght@400;700&family=Playpen+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- Music button: always visible -->
+<button id="music-btn" onclick="toggleMusic()" title="Música / Music">🎵</button>
+
+<!-- Back to language picker button: title screen only -->
+<button id="lang-back-btn" onclick="goToLangPicker()" title="Cambiar idioma / Change language">🌐</button>
+
+<!-- LANGUAGE PICKER SCREEN -->
+<div class="screen" id="lang-picker-screen">
+  <div class="lang-picker-box">
+    <span class="lang-picker-flame">🔥</span>
+    <div class="lang-picker-title">אויפֿן פּריפּעטשיק</div>
+    <div class="lang-picker-sub">Oyfn Pripetshik</div>
+    <div class="lang-picker-btns">
+      <button class="lang-pick-btn" onclick="pickLang('es')">Español</button>
+      <button class="lang-pick-btn" onclick="pickLang('pt')">Português</button>
+      <button class="lang-pick-btn" onclick="pickLang('en')">English</button>
+    </div>
+  </div>
+</div>
+
+<!-- TITLE SCREEN -->
+<div class="screen hidden" id="title-screen">
+  <div class="title-container">
+    <span class="flame-row" id="flame-btn"
+      onmousedown="flamePress()" onmouseup="flameRelease()" onmouseleave="flameRelease()"
+      ontouchstart="flamePress(event)" ontouchend="flameRelease()" ontouchcancel="flameRelease()"
+      style="cursor:pointer;" title="...">🔥</span>
+    <div class="yiddish-title">אויפֿן פּריפּעטשיק</div>
+    <div class="latin-title">Oyfn Pripetshik</div>
+    <div class="title-tagline" id="t-tagline">El Juego · דאָס שפּיל</div>
+
+    <div class="verse-strip" id="t-verse">
+      "Repitan una y otra vez -<br>
+      <em>komets-alef: 'o'.</em><br>
+      En estas letras yacen lágrimas,<br>
+      y en ellas - la fuerza."
+    </div>
+
+    <div class="categories-panel">
+      <div class="categories-title" id="t-cat-title">Elegí tus letras — קלײַב אויס</div>
+      <div class="category-grid">
+        <div class="category-item active" data-cat="vowels" onclick="toggleCat(this)">
+          <div class="cat-checkbox"><span class="cat-check-mark">✓</span></div>
+          <div class="cat-info">
+            <div class="cat-name" id="cn-vowels">Vocales</div>
+            <div class="cat-example">אַ אָ ע י ו</div>
+          </div>
+        </div>
+        <div class="category-item active" data-cat="diphthongs" onclick="toggleCat(this)">
+          <div class="cat-checkbox"><span class="cat-check-mark">✓</span></div>
+          <div class="cat-info">
+            <div class="cat-name" id="cn-diphthongs">Diptongos</div>
+            <div class="cat-example">ײ ײַ ױ</div>
+          </div>
+        </div>
+        <div class="category-item active" data-cat="consonants" onclick="toggleCat(this)">
+          <div class="cat-checkbox"><span class="cat-check-mark">✓</span></div>
+          <div class="cat-info">
+            <div class="cat-name" id="cn-consonants">Consonantes</div>
+            <div class="cat-example">ב ש ק מ</div>
+          </div>
+        </div>
+        <div class="category-item active" data-cat="clusters" onclick="toggleCat(this)">
+          <div class="cat-checkbox"><span class="cat-check-mark">✓</span></div>
+          <div class="cat-info">
+            <div class="cat-name" id="cn-clusters">Grupos de consonantes</div>
+            <div class="cat-example">דזש זש טש</div>
+          </div>
+        </div>
+        <div class="category-item active" data-cat="finals" onclick="toggleCat(this)">
+          <div class="cat-checkbox"><span class="cat-check-mark">✓</span></div>
+          <div class="cat-info">
+            <div class="cat-name" id="cn-finals">Finales</div>
+            <div class="cat-example">ם ן ף ץ</div>
+          </div>
+        </div>
+        <div class="category-item active" data-cat="loshnkoydesh" onclick="toggleCat(this)">
+          <div class="cat-checkbox"><span class="cat-check-mark">✓</span></div>
+          <div class="cat-info">
+            <div class="cat-name" id="cn-loshnkoydesh">Loshn-Koydesh</div>
+            <div class="cat-example">בֿ ח שׂ ת</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="script-panel">
+      <div class="script-title" id="t-script-title">Tipografía — שריפֿט</div>
+      <div class="script-grid">
+        <div class="script-btn active" id="script-print" onclick="setScript('print')">
+          <span class="script-sample">אבגד</span>
+          <span class="script-label" id="sn-print">Imprenta</span>
+          <span class="script-sub"   id="ss-print">Cuadrada</span>
+        </div>
+        <div class="script-btn" id="script-cursive" onclick="setScript('cursive')">
+          <span class="script-sample cursive">אבגד</span>
+          <span class="script-label" id="sn-cursive">Cursiva</span>
+          <span class="script-sub"   id="ss-cursive">Yidish-khtav</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="difficulty-panel">
+      <div class="difficulty-title" id="t-diff-title">Dificultad — שווערקייט</div>
+      <div class="difficulty-grid">
+        <div class="diff-btn" id="diff-easy" onclick="setDifficulty('easy')">
+          <span class="diff-emoji">🕯️</span>
+          <span class="diff-label" id="dn-easy">Fácil</span>
+          <span class="diff-desc"  id="dd-easy">Lento</span>
+        </div>
+        <div class="diff-btn active" id="diff-medium" onclick="setDifficulty('medium')">
+          <span class="diff-emoji">🔥</span>
+          <span class="diff-label" id="dn-medium">Medio</span>
+          <span class="diff-desc"  id="dd-medium">Normal</span>
+        </div>
+        <div class="diff-btn" id="diff-hard" onclick="setDifficulty('hard')">
+          <span class="diff-emoji">⚡</span>
+          <span class="diff-label" id="dn-hard">Difícil</span>
+          <span class="diff-desc"  id="dd-hard">Rápido</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="play-btn" id="play-btn" onclick="startGame()">▶ Shpil — שפּיל</button>
+    <div class="error-msg" id="error-msg"></div>
+    <div class="title-footer" id="t-footer">Escribí el sonido fonético para atrapar cada letra</div>
+    <img class="jvl-logo" onclick="confirmLeave()" style="cursor:pointer;" src="jvl-logo.png" alt="Jevel">
+    <div class="credits" id="t-credits">Creado por el sello fonográfico Jevel. Argentina.</div>
+  </div>
+</div>
+
+<!-- Game -->
+<canvas id="game-canvas"></canvas>
+
+<div id="hud" class="hidden">
+  <div class="hud-lives" id="lives-display"></div>
+  <div class="hud-score"  id="score-display">0</div>
+  <div class="hud-level"  id="level-display"></div>
+</div>
+
+<div id="hint-bar"></div>
+
+<div id="input-bar" class="hidden">
+  <input type="text" id="phonetic-input" placeholder="Escribí acá y presioná enter..."
+    autocomplete="off" autocorrect="off" autocapitalize="none"
+    spellcheck="false" inputmode="text">
+</div>
+
+<button id="pause-btn" onclick="togglePause()">⏸</button>
+<button id="home-btn"  onclick="confirmHome()" title="Inicio / Home">🏠</button>
+
+<!-- Confirm home modal -->
+<div id="confirm-modal">
+  <div class="confirm-box">
+    <span class="confirm-icon">🏠</span>
+    <div class="confirm-text" id="confirm-text">¿Abandonar la partida y volver al inicio?</div>
+    <div class="confirm-btns">
+      <button class="confirm-yes" id="confirm-yes" onclick="confirmYes()">Sí, salir</button>
+      <button class="confirm-no"  id="confirm-no"  onclick="confirmNo()">Seguir jugando</button>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="screen hidden" id="overlay-screen">
+  <div class="overlay-box">
+    <div class="overlay-emoji"    id="overlay-emoji"></div>
+    <div class="overlay-title"    id="overlay-title"></div>
+    <div class="overlay-subtitle" id="overlay-subtitle"></div>
+    <div class="overlay-score"    id="overlay-score"></div>
+    <div class="overlay-score-label">ניקוד · score</div>
+    <div class="share-section" id="share-section" style="display:none;">
+      <div class="share-label" id="share-label"></div>
+      <div class="share-row show">
+        <button class="share-btn" onclick="shareWhatsApp()">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.859L.057 23.571a.5.5 0 00.613.613l5.712-1.475A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 01-5.013-1.378l-.36-.214-3.733.964.991-3.617-.235-.372A9.818 9.818 0 012.182 12C2.182 6.575 6.575 2.182 12 2.182S21.818 6.575 21.818 12 17.425 21.818 12 21.818z"/></svg>
+          WhatsApp
+        </button>
+        <button class="share-btn" onclick="shareEmail()">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </button>
+      </div>
+    </div>
+    <button class="again-btn" id="again-btn" onclick="returnToTitle()"></button>
+  </div>
+</div>
+
+<!-- Leave site modal -->
+<div id="leave-modal">
+  <div class="confirm-box">
+    <span class="confirm-icon">🌐</span>
+    <div class="confirm-text" id="leave-text">¿Querés ir a jeveldiscos.com?</div>
+    <div class="confirm-btns">
+      <button class="confirm-yes" id="leave-yes" onclick="confirmLeaveYes()">Ir al sitio</button>
+      <button class="confirm-no"  id="leave-no"  onclick="confirmLeaveNo()">Quedarse</button>
+    </div>
+  </div>
+</div>
+
+<!-- Easter egg -->
+<div id="easter-egg">
+  <div class="ee-box">
+    <img class="ee-photo" src="rafael.jpg" alt="Rafael Golwaser">
+    <div class="ee-text">Dedicado con cariño a<br>Rafael Golwaser<br>que me enseñó las letras.<br><br>Julián Brenlle</div>
+    <button class="ee-close" onclick="closeEasterEgg()">cerrar</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
