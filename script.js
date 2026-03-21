@@ -24,7 +24,7 @@ const translations = {
     feat7: "Cuadrada / Cursiva",
     playBtn: "Jugar",
     downloadBtn: "Bajar",
-    contactLabel: "links",
+    contactLabel: "Links y contacto",
   },
   en: {
     tagline: "Jevel is an independent music label<br>focused on Yiddish music and klezmer.",
@@ -45,7 +45,7 @@ const translations = {
     feat7: "Square / Cursive",
     playBtn: "Play",
     downloadBtn: "Download",
-    contactLabel: "links",
+    contactLabel: "Links & contact",
   },
   pt: {
     tagline: "Jevel é uma gravadora independente<br>focada em música ídiche e klezmer.",
@@ -66,7 +66,7 @@ const translations = {
     feat7: "Quadrada / Cursiva",
     playBtn: "Jogar",
     downloadBtn: "Baixar",
-    contactLabel: "links",
+    contactLabel: "Links e contato",
   }
 };
 

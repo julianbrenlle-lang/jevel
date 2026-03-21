@@ -674,3 +674,12 @@ body::before {
   mix-blend-mode: multiply;
   opacity: 0.7;
 }
+
+/* ---- RCA IMAGE ---- */
+.rca-img {
+  display: block;
+  width: min(180px, 45vw);
+  margin: 0 0 2rem;
+  opacity: 0.75;
+  mix-blend-mode: multiply;
+}
