@@ -6,7 +6,7 @@
 
 :root {
   --ink: #1a1209;
-  --paper: #FAFAF8;
+  --paper: #fffbf4;
   --paper-dark: #e6dfd3;
   --accent: #c8440a;
   --accent-muted: #a33508;
@@ -483,8 +483,8 @@ body::before {
 .game-photo {
   width: 100%;
   display: block;
-  filter: grayscale(100%) contrast(1.1);
-  mix-blend-mode: luminosity;
+  
+
 }
 
 .game .section-ornament {
