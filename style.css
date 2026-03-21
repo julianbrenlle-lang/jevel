@@ -6,7 +6,7 @@
 
 :root {
   --ink: #1a1209;
-  --paper: #fffbf4;
+  --paper: #f5f3f0;
   --paper-dark: #e6dfd3;
   --accent: #c8440a;
   --accent-muted: #a33508;
@@ -129,7 +129,7 @@ body::before {
 }
 
 .logo {
-  width: min(300px, 58vw);
+  width: min(420px, 70vw);
   filter: contrast(1.1);
   mix-blend-mode: multiply;
   animation: logoIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
@@ -609,6 +609,16 @@ body::before {
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 700px) {
+  .contact-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .rca-img {
+    width: min(90px, 22vw);
+  }
+
   .release-inner,
   .game-inner {
     grid-template-columns: 1fr;
@@ -669,17 +679,23 @@ body::before {
 }
 
 .footer-logo {
-  width: 80px;
+  width: 110px;
   filter: contrast(1.1);
   mix-blend-mode: multiply;
   opacity: 0.7;
 }
 
 /* ---- RCA IMAGE ---- */
+.contact-body {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
 .rca-img {
   display: block;
-  width: min(180px, 45vw);
-  margin: 0 0 2rem;
-  opacity: 0.75;
+  width: min(110px, 25vw);
+  flex-shrink: 0;
+  opacity: 0.85;
   mix-blend-mode: multiply;
 }
