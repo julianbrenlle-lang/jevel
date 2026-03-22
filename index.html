@@ -21,7 +21,14 @@
   <header class="hero">
     <div class="noise-overlay"></div>
     <div class="hero-inner">
-      <img src="rca.png" alt="Jevel" class="logo" />
+      <div class="logo-wrap">
+        <img src="rca.png" alt="Jevel" class="logo" />
+        <button class="gram-play-btn" id="audioPlayBtn" aria-label="Reproducir">
+          <svg class="icon-play" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(245,243,240,0.85)" stroke="#1a1209" stroke-width="1.5"/><polygon points="10,7.5 10,16.5 17,12" fill="#1a1209"/></svg>
+          <svg class="icon-pause" width="28" height="28" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="11" fill="rgba(245,243,240,0.85)" stroke="#1a1209" stroke-width="1.5"/><rect x="8" y="7.5" width="2.5" height="9" fill="#1a1209"/><rect x="13.5" y="7.5" width="2.5" height="9" fill="#1a1209"/></svg>
+        </button>
+        <audio id="audioPlayer" src="muchoojo.mp3"></audio>
+      </div>
       <p class="tagline" data-i18n="tagline">
         Jevel es un sello independiente de música ídish y klezmer.
       </p>
@@ -96,9 +103,9 @@
     <div class="contact-body">
       <img src="vitrola.png" alt="" class="rca-img" />
       <div class="contact-links">
-      <a href="mailto:jeveldiscos@gmail.com" class="contact-item">
+      <a href="/cdn-cgi/l/email-protection#68020d1e0d040c011b0b071b280f05090104460b0705" class="contact-item">
         <span class="contact-icon">·</span>
-        <span class="contact-text">jeveldiscos@gmail.com</span>
+        <span class="contact-text"><span class="__cf_email__" data-cfemail="6a000f1c0f060e03190905192a0d070b030644090507">[email&#160;protected]</span></span>
       </a>
       <a href="https://instagram.com/jeveldiscos" target="_blank" class="contact-item" rel="noopener">
         <span class="contact-icon">·</span>
@@ -114,11 +121,4 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-logo-wrap"><img src="logolapiz.png" alt="Jevel" class="footer-logo" /></div>
-    <p class="footer-text">Jevel · 2026 · Buenos Aires</p>
-
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    <div class="footer-logo-wrap"><img src="logolapiz.png" alt="Jevel" class="footer-log

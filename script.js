@@ -165,11 +165,39 @@ function setupFooter() {
   observer.observe(yiddish);
 }
 
+// ---- AUDIO PLAYER ----
+function setupAudio() {
+  const btn = document.getElementById('audioPlayBtn');
+  const audio = document.getElementById('audioPlayer');
+  if (!btn || !audio) return;
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => { btn.classList.add('playing'); })
+          .catch(err => { console.warn('Audio play failed:', err); });
+      } else {
+        btn.classList.add('playing');
+      }
+    } else {
+      audio.pause();
+      btn.classList.remove('playing');
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    btn.classList.remove('playing');
+  });
+}
+
 // ---- INIT ----
 document.addEventListener('DOMContentLoaded', () => {
   setupReveal();
   setupTilt();
   setupFooter();
+  setupAudio();
 });
 
 // ---- BLOB DOWNLOAD ----

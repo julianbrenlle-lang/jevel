@@ -682,10 +682,41 @@ body::before {
   width: 110px;
   filter: contrast(1.1);
   mix-blend-mode: multiply;
-  opacity: 0.7;
+  opacity: 1;
 }
 
-/* ---- RCA IMAGE ---- */
+/* ---- GRAMOPHONE PLAYER ---- */
+.logo-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.gram-play-btn {
+  position: absolute;
+  bottom: 17%;
+  left: 40%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.gram-play-btn:hover {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.12);
+}
+
+.gram-play-btn.playing svg.icon-play  { display: none; }
+.gram-play-btn.playing svg.icon-pause { display: block !important; }
+
 .contact-body {
   display: flex;
   align-items: center;
