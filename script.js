@@ -165,7 +165,47 @@ function setupFooter() {
   observer.observe(yiddish);
 }
 
-// ---- INIT ----
+// ---- GRAMOPHONE PLAYER ----
+(function () {
+  const btn = document.getElementById('gramBtn');
+  const icon = document.getElementById('gramIcon');
+  if (!btn) return;
+
+  let audio = null;
+
+  function getAudio() {
+    if (!audio) {
+      audio = new Audio();
+      audio.src = 'Mucho_Ojo.mp3';
+      audio.loop = false;
+      audio.addEventListener('ended', resetBtn);
+    }
+    return audio;
+  }
+
+  const playIcon = '<polygon points="3,1 15,8 3,15" fill="#1a1209"/>';
+  const stopIcon = '<rect x="2" y="1" width="5" height="14" fill="#1a1209"/><rect x="9" y="1" width="5" height="14" fill="#1a1209"/>';
+
+  function resetBtn() {
+    icon.innerHTML = playIcon;
+    btn.setAttribute('aria-label', 'Reproducir');
+  }
+
+  btn.addEventListener('click', () => {
+    const a = getAudio();
+    if (a.paused) {
+      a.play().catch(err => console.warn('Audio play failed:', err));
+      icon.innerHTML = stopIcon;
+      btn.setAttribute('aria-label', 'Detener');
+    } else {
+      a.pause();
+      a.currentTime = 0;
+      resetBtn();
+    }
+  });
+})();
+
+
 document.addEventListener('DOMContentLoaded', () => {
   setupReveal();
   setupTilt();
