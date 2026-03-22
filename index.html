@@ -21,7 +21,27 @@
   <header class="hero">
     <div class="noise-overlay"></div>
     <div class="hero-inner">
-      <img src="rca.png" alt="Jevel" class="logo" />
+      <img src="rca.png" alt="Jevel" class="logo" 
+        <div class="logo-wrap" style="position:relative; display:inline-block;">
+  <img src="rca.png" alt="Jevel" class="logo" />
+  <button id="gramBtn" aria-label="Reproducir" style="
+    position: absolute;
+    bottom: 28%;
+    left: 18%;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 2px solid var(--paper);
+    box-shadow: 3px 3px 0 rgba(26,18,9,0.35);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, transform 0.12s;
+  ">
+    <svg id="gramIcon" viewBox="0 0 16 16" width="16" height="16" fill="var(--paper)">
+      <polygon points="4,2 14,8 4,14"/>
+    </svg>
+  </button>
+</div>
       <p class="tagline" data-i18n="tagline">
         Jevel es un sello independiente de música ídish y klezmer.
       </p>
