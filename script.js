@@ -6,7 +6,7 @@
 // ---- TRANSLATIONS ----
 const translations = {
   es: {
-    tagline: "Jevel es un sello independiente de música ídish.",
+    tagline: "Jevel es un sello independiente de música ídish y klezmer.",
     newRelease: "nuevo lanzamiento",
     listenBandcamp: "Escuchar en Bandcamp →",
     releaseDesc: "Una sesión klezmer en Buenos Aires, 2024.",
@@ -27,7 +27,7 @@ const translations = {
     contactLabel: "Links y contacto",
   },
   en: {
-    tagline: "Jevel is an independent Yiddish music label.",
+    tagline: "Jevel is an independent Yiddish and klezmer music label.",
     newRelease: "new release",
     listenBandcamp: "Listen on Bandcamp →",
     releaseDesc: "A klezmer session in Buenos Aires, 2024.",
@@ -48,7 +48,7 @@ const translations = {
     contactLabel: "Links & contact",
   },
   pt: {
-    tagline: "Jevel é um selo independente de música ídiche.",
+    tagline: "Jevel é um selo independente de música ídiche e klezmer.",
     newRelease: "novo lançamento",
     listenBandcamp: "Ouvir no Bandcamp →",
     releaseDesc: "Uma sessão klezmer em Buenos Aires, 2024.",
