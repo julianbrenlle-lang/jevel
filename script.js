@@ -88,11 +88,13 @@ function setLanguage(lang) {
   document.documentElement.lang = lang === 'pt' ? 'pt' : lang === 'en' ? 'en' : 'es';
 }
 
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    setLanguage(btn.getAttribute('data-lang'));
+function setupLangSwitcher() {
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setLanguage(btn.getAttribute('data-lang'));
+    });
   });
-});
+}
 
 // ---- SCROLL REVEAL ----
 function setupReveal() {
@@ -194,6 +196,7 @@ function setupAudio() {
 
 // ---- INIT ----
 document.addEventListener('DOMContentLoaded', () => {
+  setupLangSwitcher();
   setupReveal();
   setupTilt();
   setupFooter();
