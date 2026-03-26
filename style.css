@@ -297,6 +297,14 @@ body::before {
   max-width: 340px;
 }
 
+/* ---- RELEASE BUTTONS ---- */
+.release-btns {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .btn-bandcamp {
   display: inline-flex;
   align-items: center;
@@ -341,6 +349,27 @@ body::before {
 
 .btn-bandcamp:hover .btn-arrow {
   transform: translateX(4px);
+}
+
+/* ---- BOTÓN RESEÑA ---- */
+.btn-resena {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid rgba(26,18,9,0.35);
+  padding: 0.75rem 1.4rem;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.btn-resena:hover {
+  border-color: var(--ink);
+  background: rgba(26,18,9,0.05);
 }
 
 /* ---- GAME SECTION ---- */
@@ -483,8 +512,6 @@ body::before {
 .game-photo {
   width: 100%;
   display: block;
-  
-
 }
 
 .game .section-ornament {
@@ -636,6 +663,10 @@ body::before {
   .release-desc {
     max-width: 100%;
     margin: 0 auto 2rem;
+  }
+
+  .release-btns {
+    justify-content: center;
   }
 }
 
