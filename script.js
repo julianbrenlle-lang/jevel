@@ -1,6 +1,6 @@
 // ===========================
 // JEVEL — script.js
-// Language switcher + scroll reveals
+// Language switcher + scroll reveals + reseña toggle
 // ===========================
 
 // ---- TRANSLATIONS ----
@@ -11,6 +11,7 @@ const translations = {
     listenBandcamp: "Escuchar en Bandcamp →",
     releaseDesc: "Una sesión klezmer en Buenos Aires, 2024.",
     listenNow: "Escuchar ahora",
+    resenaBtn: "Leer reseña",
     gameLabel: "el juego",
     gameSubtitle: "komets-aleph — ¡oy vey!",
     gameDesc1: "Inspirado en la <em>folk lid</em> de Mark Markovich Warshawsky, <strong>Oyfn Pripetshik: El Juego</strong> es una manera entretenida de practicar el alef-beys.",
@@ -32,6 +33,7 @@ const translations = {
     listenBandcamp: "Listen on Bandcamp →",
     releaseDesc: "A klezmer session in Buenos Aires, 2024.",
     listenNow: "Listen now",
+    resenaBtn: "Read review",
     gameLabel: "the game",
     gameSubtitle: "komets-aleph — oy vey!",
     gameDesc1: "Inspired by the <em>folk lid</em> by Mark Markovich Warshawsky, <strong>Oyfn Pripetshik: The Game</strong> is a fun way to practice the alef-beys.",
@@ -53,6 +55,7 @@ const translations = {
     listenBandcamp: "Ouvir no Bandcamp →",
     releaseDesc: "Uma sessão klezmer em Buenos Aires, 2024.",
     listenNow: "Ouvir agora",
+    resenaBtn: "Ler resenha",
     gameLabel: "o jogo",
     gameSubtitle: "komets-aleph — oi vei!",
     gameDesc1: "Inspirado na <em>folk lid</em> de Mark Markovich Warshawsky, <strong>Oyfn Pripetshik: O Jogo</strong> é uma forma divertida de praticar o alef-beys.",
@@ -93,6 +96,21 @@ function setupLangSwitcher() {
     btn.addEventListener('click', () => {
       setLanguage(btn.getAttribute('data-lang'));
     });
+  });
+}
+
+// ---- BOTÓN RESEÑA ----
+// Cada .release-btns tiene data-hay-resena="true/false"
+// Si es false, el .btn-resena se oculta automáticamente.
+function setupResenas() {
+  document.querySelectorAll('.release-btns').forEach(container => {
+    const hayResena = container.dataset.hayResena === 'true';
+    const btnResena = container.querySelector('.btn-resena');
+    if (!btnResena) return;
+
+    if (!hayResena) {
+      btnResena.style.display = 'none';
+    }
   });
 }
 
@@ -201,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupTilt();
   setupFooter();
   setupAudio();
+  setupResenas();
 });
 
 // ---- BLOB DOWNLOAD ----
