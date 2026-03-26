@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Cambiá el título por el del disco -->
+  <title>Reseña · Mateshpil · Jevel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ---- PÁGINA DE RESEÑA ---- */
+    .resena-header {
+      border-bottom: 2px solid var(--ink);
+      padding: 5rem 2rem 3.5rem;
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .resena-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 2rem;
+      right: 2rem;
+      height: 1px;
+      background: var(--ink);
+    }
+
+    .resena-back {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+
+    .resena-back::before { content: '← '; }
+    .resena-back:hover { color: var(--ink); }
+
+    .resena-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .resena-disco-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+
+    .resena-disco-artist {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--mid);
+    }
+
+    /* ---- CUERPO DE LA RESEÑA ---- */
+    .resena-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 2rem 7rem;
+    }
+
+    /* La tipografía más legible: Libre Baskerville a tamaño generoso */
+    .resena-text {
+      font-family: var(--font-body);
+      font-size: 1.13rem;
+      line-height: 2;
+      color: var(--ink);
+    }
+
+    .resena-text p {
+      margin-bottom: 1.6em;
+    }
+
+    .resena-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .resena-text em {
+      font-style: italic;
+    }
+
+    .resena-text strong {
+      font-weight: 700;
+    }
+
+    .resena-text h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin: 2.2em 0 0.7em;
+      letter-spacing: -0.01em;
+    }
+
+    .resena-text h3 {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin: 2em 0 0.6em;
+    }
+
+    .resena-text blockquote {
+      border-left: 3px solid var(--ink);
+      padding: 0.2rem 0 0.2rem 1.4rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--mid);
+      font-size: 1.08rem;
+      line-height: 1.9;
+    }
+
+    .resena-text ul,
+    .resena-text ol {
+      padding-left: 1.6rem;
+      margin-bottom: 1.4em;
+    }
+
+    .resena-text li {
+      margin-bottom: 0.5em;
+      line-height: 1.85;
+    }
+
+    /* Separador entre secciones */
+    .resena-divider {
+      text-align: center;
+      margin: 3rem 0;
+      font-size: 0.85rem;
+      opacity: 0.25;
+      letter-spacing: 1.2rem;
+    }
+
+    /* Firma / autor */
+    .resena-firma {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(26,18,9,0.15);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--mid);
+      letter-spacing: 0.06em;
+    }
+
+    .resena-firma strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="resena-header">
+    <a href="index.html" class="resena-back">Volver</a>
+    <span class="resena-label">Reseña</span>
+    <!-- Cambiá estos datos por los del disco -->
+    <h1 class="resena-disco-title">Mateshpil</h1>
+    <p class="resena-disco-artist">Julián Brenlle &amp; Klezmer Três Rios</p>
+  </header>
+
+  <article class="resena-body">
+    <div class="resena-text">
+
+      <!-- ================================================
+           ACÁ VA EL TEXTO DE LA RESEÑA
+           Usá etiquetas HTML simples:
+           <p> para párrafos
+           <em> para cursiva
+           <strong> para negrita
+           <blockquote> para citas
+           <h2> para subtítulos grandes
+           <h3> para subtítulos pequeños
+      ================================================= -->
+
+      <p>Escribí acá el primer párrafo de la reseña. Podés usar <em>cursiva</em> y <strong>negrita</strong> libremente.</p>
+
+      <p>Segundo párrafo. El texto usa Libre Baskerville a 1.13rem con interlineado generoso, la tipografía más legible de la familia de fuentes del sitio.</p>
+
+      <div class="resena-divider">✦ ✦ ✦</div>
+
+      <h2>Un subtítulo si hace falta</h2>
+
+      <p>Más texto después del subtítulo.</p>
+
+      <blockquote>
+        Una cita importante va acá, en blockquote, que aparece con línea lateral y en cursiva.
+      </blockquote>
+
+      <p>Continuación del texto.</p>
+
+    </div>
+
+    <!-- FIRMA DEL AUTOR (opcional, borrala si no aplica) -->
+    <div class="resena-firma">
+      <strong>Nombre del autor/a</strong><br>
+      Fecha o publicación de origen
+    </div>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-logo-wrap"><img src="logolapiz.png" alt="Jevel" class="footer-logo" /></div>
+    <p class="footer-text">Jevel · 2026 · Buenos Aires</p>
+  </footer>
+
+</body>
+</html>

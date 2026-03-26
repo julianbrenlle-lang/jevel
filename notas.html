@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notas · Jevel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* ---- NOTAS PAGE SPECIFIC ---- */
+    .notas-header {
+      min-height: 38vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      border-bottom: 2px solid var(--ink);
+      padding: 4rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .notas-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--ink) 0px,
+        var(--ink) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+    }
+
+    .notas-back {
+      position: absolute;
+      top: 1.4rem;
+      left: 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .notas-back:hover {
+      color: var(--ink);
+    }
+
+    .notas-back::before {
+      content: '← ';
+    }
+
+    .notas-title-page {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      letter-spacing: -0.01em;
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    .notas-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ---- FILTROS ---- */
+    .notas-filtros {
+      max-width: 960px;
+      margin: 2.5rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(26,18,9,0.2);
+    }
+
+    .filtro-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 0.6rem 1.2rem 0.6rem 0;
+      cursor: pointer;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .filtro-btn:hover,
+    .filtro-btn.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    /* ---- GRID DE NOTAS ---- */
+    .notas-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    .nota-card {
+      border-bottom: 1px solid rgba(26,18,9,0.15);
+      padding: 2.8rem 0;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .nota-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nota-card:first-child {
+      padding-top: 0;
+    }
+
+    .nota-meta {
+      text-align: right;
+      padding-top: 0.2rem;
+    }
+
+    .nota-fecha {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--mid);
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .nota-tipo-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      border: 1px solid rgba(26,18,9,0.2);
+      padding: 0.2rem 0.5rem;
+    }
+
+    .nota-tipo-badge.tipo-imagen { border-color: var(--ink); color: var(--ink); }
+    .nota-tipo-badge.tipo-link   { border-color: var(--accent); color: var(--accent); }
+
+    .nota-cuerpo {}
+
+    .nota-titulo {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nota-imagen-wrap {
+      margin-bottom: 1.4rem;
+      border: 1.5px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      overflow: hidden;
+    }
+
+    .nota-imagen-wrap img {
+      width: 100%;
+      display: block;
+      filter: contrast(1.05) saturate(0.88);
+    }
+
+    /* Contenido markdown renderizado */
+    .nota-contenido {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--ink);
+    }
+
+    .nota-contenido p { margin-bottom: 1.1em; }
+    .nota-contenido p:last-child { margin-bottom: 0; }
+    .nota-contenido em { font-style: italic; }
+    .nota-contenido strong { font-weight: 700; }
+
+    .nota-contenido h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin: 1.6em 0 0.6em;
+    }
+
+    .nota-contenido h3 {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin: 1.4em 0 0.5em;
+      color: var(--mid);
+    }
+
+    .nota-contenido blockquote {
+      border-left: 3px solid var(--ink);
+      padding-left: 1.2rem;
+      margin: 1.2rem 0;
+      font-style: italic;
+      color: var(--mid);
+    }
+
+    .nota-contenido ul,
+    .nota-contenido ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1em;
+    }
+
+    .nota-contenido li {
+      margin-bottom: 0.4em;
+    }
+
+    .nota-link-externo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      color: var(--accent-muted);
+      text-decoration: none;
+      margin-top: 1rem;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 0.1rem;
+      transition: color 0.2s;
+    }
+
+    .nota-link-externo:hover {
+      color: var(--accent);
+    }
+
+    /* ---- ESTADO VACÍO ---- */
+    .notas-vacio {
+      text-align: center;
+      padding: 6rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--mid);
+      letter-spacing: 0.08em;
+    }
+
+    .notas-vacio .vacio-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+
+    /* ---- LOADING ---- */
+    .notas-loading {
+      text-align: center;
+      padding: 5rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      .nota-card {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+
+      .nota-meta {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="notas-header">
+    <a href="index.html" class="notas-back">Jevel</a>
+    <h1 class="notas-title-page">Notas</h1>
+    <p class="notas-subtitle">Textos · Imágenes · Historietas · Links</p>
+  </header>
+
+  <div class="notas-filtros" id="filtros">
+    <button class="filtro-btn active" data-filtro="todos">Todos</button>
+    <button class="filtro-btn" data-filtro="texto">Texto</button>
+    <button class="filtro-btn" data-filtro="imagen">Imagen</button>
+    <button class="filtro-btn" data-filtro="mezcla">Mezcla</button>
+    <button class="filtro-btn" data-filtro="link">Link</button>
+  </div>
+
+  <main class="notas-grid" id="notasGrid">
+    <div class="notas-loading">Cargando notas…</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo-wrap"><img src="logolapiz.png" alt="Jevel" class="footer-logo" /></div>
+    <p class="footer-text">Jevel · 2026 · Buenos Aires</p>
+  </footer>
+
+  <script>
+    // ---- LEER ARCHIVOS MARKDOWN DE _notas/ ----
+    // Decap CMS guarda cada nota como un archivo .md en _notas/
+    // Este script los carga via fetch desde un índice JSON generado.
+    // Si no hay índice, intenta cargar notas-data.json (fallback manual).
+
+    let todasLasNotas = [];
+
+    async function cargarNotas() {
+      const grid = document.getElementById('notasGrid');
+
+      try {
+        // Intenta cargar el índice generado por el build, o el JSON manual
+        const res = await fetch('notas-data.json');
+        if (!res.ok) throw new Error('no data');
+        const notas = await res.json();
+        todasLasNotas = notas.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        renderNotas(todasLasNotas);
+      } catch (e) {
+        grid.innerHTML = `
+          <div class="notas-vacio">
+            <span class="vacio-icon">✦</span>
+            Todavía no hay notas publicadas.
+          </div>`;
+      }
+    }
+
+    function formatFecha(str) {
+      if (!str) return '';
+      const d = new Date(str + 'T12:00:00');
+      return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function labelTipo(tipo) {
+      const labels = { texto: 'Texto', imagen: 'Imagen', mezcla: 'Mezcla', link: 'Link' };
+      return labels[tipo] || tipo;
+    }
+
+    function renderNotas(notas) {
+      const grid = document.getElementById('notasGrid');
+
+      if (!notas.length) {
+        grid.innerHTML = `
+          <div class="notas-vacio">
+            <span class="vacio-icon">✦</span>
+            No hay notas en esta categoría.
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = notas.map((nota, i) => `
+        <article class="nota-card" data-tipo="${nota.tipo || 'texto'}" style="transition-delay: ${i * 60}ms">
+          <div class="nota-meta">
+            <span class="nota-fecha">${formatFecha(nota.fecha)}</span>
+            <span class="nota-tipo-badge tipo-${nota.tipo || 'texto'}">${labelTipo(nota.tipo)}</span>
+          </div>
+          <div class="nota-cuerpo">
+            <h2 class="nota-titulo">${nota.titulo || ''}</h2>
+            ${nota.imagen ? `<div class="nota-imagen-wrap"><img src="${nota.imagen}" alt="${nota.titulo || ''}" loading="lazy" /></div>` : ''}
+            <div class="nota-contenido">${nota.body ? marked.parse(nota.body) : ''}</div>
+            ${nota.url_link ? `<a href="${nota.url_link}" target="_blank" rel="noopener" class="nota-link-externo">${nota.texto_link || nota.url_link} →</a>` : ''}
+          </div>
+        </article>
+      `).join('');
+
+      // Scroll reveal
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+      document.querySelectorAll('.nota-card').forEach(el => observer.observe(el));
+    }
+
+    // ---- FILTROS ----
+    document.getElementById('filtros').addEventListener('click', e => {
+      const btn = e.target.closest('.filtro-btn');
+      if (!btn) return;
+
+      document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filtro = btn.dataset.filtro;
+      const filtradas = filtro === 'todos'
+        ? todasLasNotas
+        : todasLasNotas.filter(n => n.tipo === filtro);
+
+      renderNotas(filtradas);
+    });
+
+    // ---- INIT ----
+    cargarNotas();
+  </script>
+
+</body>
+</html>
